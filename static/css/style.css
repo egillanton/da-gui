@@ -22,3 +22,17 @@
     margin-top: 1rem!important;
     margin-bottom: 1rem!important;
 }
+
+.left-chat{
+    text-align: left;
+    border-bottom: 2px solid #00397c;
+}
+
+.right-chat{
+    text-align: right;
+    border-bottom: 2px solid #00397c;
+}
+
+ul {
+    list-style-type: none;
+}

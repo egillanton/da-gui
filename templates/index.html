@@ -16,12 +16,15 @@
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Spurðu mig um hvað sem er...">
                 <div class="input-group-append">
-                    <button id="button-send" class="btn btn-primary" type="button">Send</button>
-                    <button id="button-clear" class="btn btn-info" type="button">Clear</button>
-                    <button id="button-record" class="btn btn-danger" type="button">Record</button>
+                    <button id="button-send" class="btn btn-primary" type="button" onclick="send()">Send</button>
+                    <button id="button-record" class="btn btn-danger" type="button" onclick="record()">Record</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
 {% endblock %}
