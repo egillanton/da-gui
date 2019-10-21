@@ -24,7 +24,6 @@ if (!('webkitSpeechRecognition' in window)) {
             $("#input_text").val("");
             $("#input_text").val(capitalize(final_transcript));
             showInfo('');
-            $("#input_text").prop('placeholder', '');
         } else {
             showInfo('info_start');
         }
@@ -110,17 +109,45 @@ function disableButtons() {
 
 function enableButtons() {
     $("#btn-send").attr("disabled", false);
+    $("#btn-startButton").attr("disabled", false);
 }
 
 function clearText() {
     $("#input_text").val("");
+    $("#input_text").prop('placeholder', '');
 }
 
 function send() {
     if ($("#input_text").val()) {
         var text = $("#input_text").val();
+        $("#btn-send").attr("disabled", true);
+        $("#btn-startButton").attr("disabled", true);
         addTextToList(text, false); // keep right
         clearText();
+        $("#input_text").attr("readonly", true);
+        showInfo('info_wait');
+        $.ajax({
+            type: 'POST',
+            url: "/ask",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify({
+                "q": final_transcript,
+            }),
+            success: function (res) {
+                var text = res.response;
+                addTextToList(text, true);
+            },
+            error: function (error) {
+                console.log(error);
+            },
+            complete: function (data) {
+                enableButtons();
+                clearText();
+                $("#input_text").attr("readonly", false);
+                showInfo('');
+            }
+        });
     }
 }
 
