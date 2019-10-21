@@ -2,22 +2,65 @@
 
 {% block content %}
 <div class="container">
+    <div id="info">
+        <div id="info_start" class="card bg-light my-1" >
+            <div class="card-body">
+                Smelltu á "Taka upp" hnappinn til þess að hefja upptöku.
+            </div>
+        </div>
+        <div id="info_speak_now" class="card text-white bg-success my-1" style="display:none" >
+            <div class="card-body">
+                Upptaka í gangi.
+            </div>
+        </div>
+        <div id="info_no_speech" class="card bg-warning my-1" style="display:none" >
+            <div class="card-body">
+                Ekkert hljoð fannst. Það þarf að stilla af hljóðnemann.
+            </div>
+        </div>
+        <div id="info_no_microphone" class="card bg-warning my-1" style="display:none" >
+            <div class="card-body">
+                Enginn hljóðnemi fannst. Gakktu úr skugga um að hann sé tengdur.
+            </div>
+        </div>
+        <div id="info_allow" class="card text-white bg-info my-1" style="display:none" >
+            <div class="card-body">
+                Smelltu á  "Allow" takkann hér fyrir ofan til þess að virkja hljóðnemann.
+            </div>
+        </div>
+        <div id="info_denied" class="card bg-warning my-1" style="display:none" >
+            <div class="card-body">
+                Það tókst ekki að fá leyfi fyrir að nota hljóðnemann.
+            </div>
+        </div>
+        <div id="info_blocked" class="card text-white bg-info my-1" style="display:none" >
+            <div class="card-body">
+                Það hefur verið á lokað á hljóðnemann, til þess að virkja hann, farðu í stillingar í vafranum.
+            </div>
+        </div>
+        <div id="info_upgrade" class="card text-white bg-danger  my-1" style="display:none" >
+            <div class="card-body">
+                Vafrinn þinn styður ekki við talgreinirinn, uppfærðu Chrome.
+            </div>
+        </div>
+    </div>
+
     <div class="row ">
-        <div class="col panel-header">
-            <h1 class="text-center font-weight-bold">Chatbot</h1>
+        <div class="col chat-header">
+            <h1 class="text-center font-weight-bold">Sjálfvirkur Þjónustufulltrúi</h1>
         </div>
         <div class="w-100"></div>
-        <div class="col panel-body">
+        <div class="col chat-body">
             <ul class="chat">
             </ul>
         </div>
         <div class="w-100"></div>
-        <div class="col panel-footer">
+        <div class="col chat-footer">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Spurðu mig um hvað sem er...">
+                <input type="text" id="input_text" class="form-control" placeholder="Góðan daginn, hvernig get ég aðstoðað?">
                 <div class="input-group-append">
-                    <button id="button-send" class="btn btn-primary" type="button" onclick="send()">Send</button>
-                    <button id="button-record" class="btn btn-danger" type="button" onclick="record()">Record</button>
+                    <button id="btn-send" class="btn btn-primary" type="button" onclick="send()">Senda inn skilaboð</button>
+                    <button id="btn-startButton" class="btn btn-danger" type="button" onclick="startButton(event)">Taka upp</button>
                 </div>
             </div>
         </div>

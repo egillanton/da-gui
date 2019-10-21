@@ -2,19 +2,19 @@
     border: 2px solid #00397c;
 }
 
-.panel-header{
+.chat-header{
     background-color: #00397c;
     color: #ffffff;
 }
 
-.panel-body
+.chat-body
 {
     background-color: #ffffff;
     overflow-y: scroll;
     height: 500px;
 }
 
-.panel-footer{
+.chat-footer{
     border-top: 2px solid #00397c;
 }
 
