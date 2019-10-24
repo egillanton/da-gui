@@ -2,8 +2,34 @@ var final_transcript = '';
 var recognizing = false;
 var start_timestamp;
 
+// Mapping of the OutputFormat parameter of the SynthesizeSpeech API
+// and the audio format strings understood by the browser
+var AUDIO_FORMATS = {
+    'ogg_vorbis': 'audio/ogg',
+    'mp3': 'audio/mpeg',
+    'pcm': 'audio/wave; codecs=1'
+};
+
+
+/**
+ * Returns a list of audio formats supported by the browser
+ */
+function getSupportedAudioFormats(player) {
+    return Object.keys(AUDIO_FORMATS)
+        .filter(function (format) {
+            var supported = player.canPlayType(AUDIO_FORMATS[format]);
+            return supported === 'probably' || supported === 'maybe';
+        });
+}
+
+var supportedFormats = getSupportedAudioFormats(player);
+
 if (!('webkitSpeechRecognition' in window)) {
     console.log("webkitSpeechRecognition not found!");
+} else if (supportedFormats.length == 0) {
+    showInfo("info_upgrade");
+    disableEverything();
+
 } else {
     var recognition = new webkitSpeechRecognition();
     recognition.continuous = false; //  when the user stops talking, speech recognition will end
@@ -103,6 +129,21 @@ function addTextToList(text, left) {
     list.appendChild(node); // Append <li> to <ul>
 }
 
+function disableEverything() {
+    $("#btn-send").attr("disabled", true);
+    $("#btn-startButton").attr("disabled", true);
+    $("#input_text").val("");
+    $("#input_text").prop('placeholder', '');
+    $("#input_text").attr("readonly", true);
+}
+
+function enableEverything() {
+    $("#btn-send").attr("disabled", false);
+    $("#btn-startButton").attr("disabled", false);
+    $("#input_text").attr("readonly", false);
+}
+
+
 function disableButtons() {
     $("#btn-send").attr("disabled", true);
 }
@@ -115,6 +156,18 @@ function enableButtons() {
 function clearText() {
     $("#input_text").val("");
     $("#input_text").prop('placeholder', '');
+}
+
+
+function speek(text) {
+    player = document.getElementById('player');
+    var voiceId = 'Dora';
+    player.src = '/read?voiceId=' + encodeURIComponent(voiceId) +
+        '&text=' + encodeURIComponent(text) +
+        '&outputFormat=' + supportedFormats[0];
+    player.play();
+
+
 }
 
 function send() {
@@ -137,6 +190,7 @@ function send() {
             success: function (res) {
                 var text = res.response;
                 addTextToList(text, true);
+                speek(text);
             },
             error: function (error) {
                 console.log(error);
