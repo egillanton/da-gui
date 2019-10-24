@@ -114,12 +114,10 @@ function addTextToList(text, left) {
 
     // Add style 
     if (left) {
-        userIcon.classList.add("fas");
-        userIcon.classList.add("fa-user-tie");
+        userIcon.classList.add("fas", "fa-user-tie", "fa-lg", "mt-3");
         node.classList.add("left-chat");
     } else {
-        userIcon.classList.add("fas");
-        userIcon.classList.add("fa-user-circle");
+        userIcon.classList.add("fas", "fa-user-circle", "fa-lg", "mt-3");
         node.classList.add("right-chat");
     }
 
