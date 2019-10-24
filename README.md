@@ -23,8 +23,8 @@ DA-GUI - Dialog Agent Graphical User Interface
 ## 1 Introduction
 
 DA-GUI is a Web GUI that runs on top of a Flask Web Server. 
-For user interation, it uses Amazon Polly for speech synthesis and Google Web API for speech recognition. 
-This project is implemented in Icelandic.
+For user interaction, it uses Amazon Polly for speech synthesis and Google Web API for speech recognition. 
+This implementation is in Icelandic. The code and comments are in English.
 
 ## 2 Setup
 
