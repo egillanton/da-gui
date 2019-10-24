@@ -28,6 +28,10 @@
     border-bottom: 2px solid #00397c;
 }
 
+i{
+    color: #00397c;
+}
+
 .right-chat{
     text-align: right;
     border-bottom: 2px solid #00397c;
@@ -35,4 +39,5 @@
 
 ul {
     list-style-type: none;
+    padding-inline-start: 0px;
 }

@@ -1,42 +1,74 @@
-# Chatbot
+<h1 align="center">
+DA-GUI - Dialog Agent Graphical User Interface
+</h1>
 
-## Setup Virtual Enviroment
+<img src="img/screenshot.png" alt="Screenshot" align="center"/>
 
-### Install pip first
 
-#### For Linux and Mac:
+## Table of Contents
+<!-- ⛔️ MD-MAGIC-EXAMPLE:START (TOC:collapse=true&collapseText=Click to expand) -->
+<details>
+<summary>Click to expand</summary>
+
+1. [Introduction](#1-introduction)
+2. [Setup](#3-setup)
+3. [Authors](#4-authors)
+4. [License](#5-license)
+5. [References](#6-references)
+
+</details>
+<!-- ⛔️ MD-MAGIC-EXAMPLE:END -->
+
+
+## 1 Introduction
+
+DA-GUI is a Web GUI that runs on top of a Flask Web Server. 
+For user interation, it uses Amazon Polly for speech synthesis and Google Web API for speech recognition. 
+This project is implemented in Icelandic.
+
+## 2 Setup
+
+Make sure to have Python 3.6 or newer installed.
+
+### 2.1 Get virtualenv
+
 ```bash
-sudo apt-get install python3-pip
+$ pip3 install virtualenv
 ```
 
-### Install virtualenv
+### 2.2 Create a virtual enviroment
+
+Make sure to create a Python3 instead of Python2 enviroment by refrencing its binaries.
 ```bash
-pip install virtualenv 
+$ which python3
+/usr/bin/python3
 ```
 
-### Create  a virtual enviroment with the name venv
+You can use any name you want, we will use "venv".
 ```bash
-virtualenv venv
+$ virtualenv -p /usr/bin/python3  venv
 ```
 
-### Activate the virtual enviroment
+### 2.3 Activate enviroment
 
-#### Linux
 ```bash
-. venv/bin/activate
+$ . venv/bin/activate
 ```
 
-#### Microsoft
+Now you have activated your virual enviroment and your teminal should display its name as so:
 ```bash
-venv\Scripts\activate
+$(venv)
 ```
 
-## Get required packages into the virtual enviroment
+### 2.4 Install requried packages
 ```bash
-pip install -r requirements.txt
+$(venv) pip3 install -r requirements.txt  
 ```
 
-## [Quickly Configuring the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration)
+
+### 2.5 Configuring the AWS CLI
+Guide: [Quickly Configuring the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration)
+
 ```bash
 $ aws configure
 AWS Access Key ID [None]: AKIAIOSFODNN7EXAMPLE
@@ -45,7 +77,7 @@ Default region name [None]: us-west-2
 Default output format [None]: json
 ```
 
-## Tips
+#### Tips
 The standard `aws configure` adds a `default` profile instead of `adminuser`, so if you try to run `server.py` immediately after configuring AWS CLI you might get a `botocore.exceptions.ProfileNotFound: The config profile (adminuser) could not be found` error.
 
 To fix this, you have to add an `adminuser` profile to your `config` file. On Linux or macOS, this is usually located at `~/.aws/config`. On Windows, this is `C:\Users\USERNAME \.aws\config`
@@ -63,41 +95,33 @@ aws_secret_access_key = INSERT SECRET ACCESS KEY
 You can simply use the same values as those under the `default` user.
 
 
-## Run The Application
-
-### For Linux and Mac:
+### 2.6 Run The Application
 
 ```bash
-export FLASK_APP=chatbot.py
-export FLASK_ENV=development
-flask run
-```
-
-### For Windows cmd, use set instead of export:
-
-```bash
-set FLASK_APP=chatbot.py
-set FLASK_ENV=development
-flask run
-```
-
-###  For Windows PowerShell, use $env: instead of export:
-
-```bash
-$env:FLASK_APP = "chatbot"
-$env:FLASK_ENV = "development"
-flask run
+$(venv) python3 server.py
 ```
 
 You’ll see output similar to this:
 
 ```bash
-Serving Flask app "chatbot"
+Serving Flask app "server"
 Environment: development
 Debug mode: on
 Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
 ```
 
+Open the link in your Chrome browser.
 
+## 4 Authors
+* [Egill Anton Hlöðversson](https://github.com/egillanton) - MSc. Language Technology Student
 
-[aws-amazon-polly-flask-sample](https://github.com/spaceraccoon/aws-amazon-polly-flask-sample)
+## 5 License
+This project is licensed under the Apache License, Version 2.0 - see the [LICENSE](LICENSE) file for details.
+
+## 6 References
+* [aws-amazon-polly-flask-sample](https://github.com/spaceraccoon/aws-amazon-polly-flask-sample)
+* [Web Speech API Demonstration](https://www.google.com/intl/en/chrome/demos/speech.html)
+
+<p align="center">
+🌟 PLEASE STAR THIS REPO IF YOU FOUND SOMETHING INTERESTING 🌟
+</p>

@@ -114,10 +114,10 @@ function addTextToList(text, left) {
 
     // Add style 
     if (left) {
-        userIcon.classList.add("fas", "fa-user-tie", "fa-lg", "mt-3");
+        userIcon.classList.add("fas", "fa-user-tie", "fa-2x", "mt-3");
         node.classList.add("left-chat");
     } else {
-        userIcon.classList.add("fas", "fa-user-circle", "fa-lg", "mt-3");
+        userIcon.classList.add("fas", "fa-user-circle", "fa-2x", "mt-3");
         node.classList.add("right-chat");
     }
 
@@ -157,9 +157,8 @@ function clearText() {
 }
 
 
-function speek(text) {
+function speek(text, voiceId) {
     player = document.getElementById('player');
-    var voiceId = 'Dora';
     player.src = '/read?voiceId=' + encodeURIComponent(voiceId) +
         '&text=' + encodeURIComponent(text) +
         '&outputFormat=' + supportedFormats[0];
@@ -188,7 +187,8 @@ function send() {
             success: function (res) {
                 var text = res.response;
                 addTextToList(text, true);
-                speek(text);
+                // Dora is the Icelandic speech synthesiser by Amazon
+                speek(text, 'Dora');
             },
             error: function (error) {
                 console.log(error);

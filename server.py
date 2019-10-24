@@ -1,31 +1,32 @@
 from flask import Flask, render_template, request, url_for, jsonify, send_file, Response
+from flask_fontawesome import FontAwesome
+
 from argparse import ArgumentParser
 import os
 import sys
 
 from boto3 import Session
 from botocore.exceptions import BotoCoreError, ClientError
-from flask_fontawesome import FontAwesome
 
-# Mapping the output format used in the client to the content type for the
-# response
+
+# Mapping possible user browser suported audio formats to their corresponding response code for AWS Polly
 AUDIO_FORMATS = {"ogg_vorbis": "audio/ogg",
                  "mp3": "audio/mpeg",
                  "pcm": "audio/wave; codecs=1"}
 
 # Create a client using the credentials and region defined in the adminuser
 # section of the AWS credentials and configuration files
+# For more information read the READEME.md file
 session = Session(profile_name="adminuser")
 polly = session.client("polly")
 
 
-# Init App
+# Init Flask App
 app = Flask(__name__)
 fa = FontAwesome(app)
 
-# Simple exception class
 
-
+# Simple Exception Class
 class InvalidUsage(Exception):
     status_code = 400
 
@@ -42,7 +43,7 @@ class InvalidUsage(Exception):
         return rv
 
 
-# Register error handler
+# Custom Error Handler
 @app.errorhandler(InvalidUsage)
 def handle_invalid_usage(error):
     response = jsonify(error.to_dict())
@@ -57,20 +58,26 @@ def index():
 
 @app.route('/ask', methods=['POST'])
 def ask():
-    # Retrive incoming data fields
+    """
+    Recieves a query and responses 
+    """
     query = request.json['q']
     print(f'User query: {query}')
-    response = "Fyrirspurn þín hefur verið mótekin"
+
+    # TODO: Analyse the query with infromation extraction, and add a dialog manager to keep track of teh conversation.
+
+    response = "Halló, þetta er svar frá vefþjónustunni."
     print(f'Response to User: {response}')
     return jsonify(
         response=response,
     )
 
 
-# AWS polly
 @app.route('/read', methods=['GET'])
 def read():
-    """Handles routing for reading text (speech synthesis)"""
+    """
+    Handles routing for speech synthesis by Amazon Polly
+    """
     # Get the parameters from the query string
     try:
         outputFormat = request.args.get('outputFormat')
