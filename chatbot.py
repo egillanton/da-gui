@@ -5,6 +5,7 @@ import sys
 
 from boto3 import Session
 from botocore.exceptions import BotoCoreError, ClientError
+from flask_fontawesome import FontAwesome
 
 # Mapping the output format used in the client to the content type for the
 # response
@@ -20,9 +21,11 @@ polly = session.client("polly")
 
 # Init App
 app = Flask(__name__)
-
+fa = FontAwesome(app)
 
 # Simple exception class
+
+
 class InvalidUsage(Exception):
     status_code = 400
 
