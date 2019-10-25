@@ -127,6 +127,21 @@ function addTextToList(text, left) {
     list.appendChild(node); // Append <li> to <ul>
 }
 
+function disableButtons() {
+    $("#btn-send").attr("disabled", true);
+    $("#btn-startButton").attr("disabled", true);
+}
+
+function enableButtons() {
+    $("#btn-send").attr("disabled", false);
+    $("#btn-startButton").attr("disabled", false);
+}
+
+function clearText() {
+    $("#input_text").val("");
+    $("#input_text").prop('placeholder', '');
+}
+
 function disableEverything() {
     $("#btn-send").attr("disabled", true);
     $("#btn-startButton").attr("disabled", true);
@@ -142,29 +157,17 @@ function enableEverything() {
 }
 
 
-function disableButtons() {
-    $("#btn-send").attr("disabled", true);
-}
-
-function enableButtons() {
-    $("#btn-send").attr("disabled", false);
-    $("#btn-startButton").attr("disabled", false);
-}
-
-function clearText() {
-    $("#input_text").val("");
-    $("#input_text").prop('placeholder', '');
-}
-
 
 function speek(text, voiceId) {
+    disableEverything();
     player = document.getElementById('player');
     player.src = '/read?voiceId=' + encodeURIComponent(voiceId) +
         '&text=' + encodeURIComponent(text) +
         '&outputFormat=' + supportedFormats[0];
     player.play();
-
-
+    player.onended = function () {
+        enableEverything();
+    };
 }
 
 function send() {
@@ -194,9 +197,6 @@ function send() {
                 console.log(error);
             },
             complete: function (data) {
-                enableButtons();
-                clearText();
-                $("#input_text").attr("readonly", false);
                 showInfo('');
             }
         });
