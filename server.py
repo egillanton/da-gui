@@ -66,7 +66,7 @@ def ask():
 
     # TODO: Analyse the query with infromation extraction, and add a dialog manager to keep track of teh conversation.
 
-    response = "Halló, þetta er svar frá vefþjónustunni."
+    response = query
     print(f'Response to User: {response}')
     return jsonify(
         response=response,

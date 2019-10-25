@@ -2,8 +2,8 @@
 
 {% block content %}
 <div class="container">
-    <div id="info">        
-        <div id="info_start" class="card bg-light my-1" >
+    <div id="info">       
+        <div id="info_start" class="card bg-light my-1">
             <div class="card-body">
                 Smelltu á "Taka upp" hnappinn til þess að hefja upptöku.
             </div>
@@ -67,10 +67,10 @@
         <div class="w-100"></div>
         <div class="col chat-footer">
             <div class="input-group mb-3">
-                <input type="text" id="input_text" class="form-control" placeholder="Góðan daginn, hvernig get ég aðstoðað?">
+                <input type="text" id="input_text" class="form-control" placeholder="Góðan daginn, hvernig get ég aðstoðað?" readonly>
                 <div class="input-group-append">
-                    <button id="btn-send" class="btn btn-primary" type="button" onclick="send()">Senda inn skilaboð</button>
-                    <button id="btn-startButton" class="btn btn-danger" type="button" onclick="startButton(event)">Taka upp</button>
+                    <button id="btn-send" class="btn btn-primary" type="button" onclick="send()" disabled>Senda inn skilaboð</button>
+                    <button id="btn-startButton" class="btn btn-danger" type="button" onclick="startButton(event)" disabled>Taka upp</button>
                 </div>
             </div>
         </div>

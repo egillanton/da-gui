@@ -169,10 +169,10 @@ function speek(text, voiceId) {
 
 function send() {
     if ($("#input_text").val()) {
-        var text = $("#input_text").val();
+        var input_text = $("#input_text").val();
         $("#btn-send").attr("disabled", true);
         $("#btn-startButton").attr("disabled", true);
-        addTextToList(text, false); // keep right
+        addTextToList(input_text, false); // keep right
         clearText();
         $("#input_text").attr("readonly", true);
         showInfo('info_wait');
@@ -182,13 +182,13 @@ function send() {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             data: JSON.stringify({
-                "q": final_transcript,
+                "q": input_text,
             }),
             success: function (res) {
-                var text = res.response;
-                addTextToList(text, true);
+                var outputText = res.response;
+                addTextToList(outputText, true);
                 // Dora is the Icelandic speech synthesiser by Amazon
-                speek(text, 'Dora');
+                speek(outputText, 'Dora');
             },
             error: function (error) {
                 console.log(error);
@@ -216,6 +216,5 @@ function startButton(event) {
 
 
 $(document).ready(function () {
-    console.log("ready!");
-
+    enableEverything();
 });
