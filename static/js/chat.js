@@ -37,7 +37,6 @@ if (!('webkitSpeechRecognition' in window)) {
     recognition.lang = 'is-IS';
 
     recognition.onstart = function () {
-        $("#btn-startButton").prop('value', '"Hætta Upptöku"');
         recognizing = true;
         final_transcript = '';
         showInfo('info_speak_now');
@@ -45,7 +44,6 @@ if (!('webkitSpeechRecognition' in window)) {
     };
     recognition.onend = function () {
         recognizing = false;
-        $("#btn-startButton").prop('value', '"Taka upp"');
         if (final_transcript) {
             $("#input_text").val("");
             $("#input_text").val(capitalize(final_transcript));
