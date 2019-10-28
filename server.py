@@ -62,7 +62,8 @@ def index():
 @app.route('/ask', methods=['POST'])
 def ask():
     query = request.json['q']
-    # TODO: Analyse the query with infromation extraction, and add a dialog manager to keep track of teh conversation.
+    # TODO: Analyse the query with infromation extraction,
+    # and add a dialog manager to keep track of teh conversation.
     response = query
     return jsonify(
         response=response,
