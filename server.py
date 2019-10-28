@@ -1,12 +1,11 @@
+from botocore.exceptions import BotoCoreError, ClientError
+from boto3 import Session
 from flask import Flask, render_template, request, url_for, jsonify, send_file, Response
 from flask_fontawesome import FontAwesome
 
 from argparse import ArgumentParser
 import os
 import sys
-
-from boto3 import Session
-from botocore.exceptions import BotoCoreError, ClientError
 
 
 # Init Flask App
@@ -17,6 +16,7 @@ fa = FontAwesome(app)
 # ======== AWS Polly Setup =========================================================== #
 # Mapping possible user browser suported audio formats to their corresponding
 # response code for AWS Polly
+
 AUDIO_FORMATS = {"ogg_vorbis": "audio/ogg",
                  "mp3": "audio/mpeg",
                  "pcm": "audio/wave; codecs=1"}
