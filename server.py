@@ -9,7 +9,14 @@ from boto3 import Session
 from botocore.exceptions import BotoCoreError, ClientError
 
 
-# Mapping possible user browser suported audio formats to their corresponding response code for AWS Polly
+# Init Flask App
+app = Flask(__name__)
+app.secret_key = os.urandom(12)  # Generic key for dev purposes only
+fa = FontAwesome(app)
+
+# ======== AWS Polly Setup =========================================================== #
+# Mapping possible user browser suported audio formats to their corresponding
+# response code for AWS Polly
 AUDIO_FORMATS = {"ogg_vorbis": "audio/ogg",
                  "mp3": "audio/mpeg",
                  "pcm": "audio/wave; codecs=1"}
@@ -21,12 +28,7 @@ session = Session(profile_name="adminuser")
 polly = session.client("polly")
 
 
-# Init Flask App
-app = Flask(__name__)
-fa = FontAwesome(app)
-
-
-# Simple Exception Class
+# ======== Simple Exception Handler =========================================================== #
 class InvalidUsage(Exception):
     status_code = 400
 
@@ -43,42 +45,35 @@ class InvalidUsage(Exception):
         return rv
 
 
-# Custom Error Handler
 @app.errorhandler(InvalidUsage)
 def handle_invalid_usage(error):
     response = jsonify(error.to_dict())
     response.status_code = error.status_code
     return response
 
-
+# ======== Routing =========================================================== #
+# -------- Home ---------------------------------------------------------- #
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
 
 
+# -------- ASK ---------------------------------------------------------- #
 @app.route('/ask', methods=['POST'])
 def ask():
-    """
-    Recieves a query and responses 
-    """
     query = request.json['q']
-    print(f'User query: {query}')
-
     # TODO: Analyse the query with infromation extraction, and add a dialog manager to keep track of teh conversation.
-
     response = query
-    print(f'Response to User: {response}')
     return jsonify(
         response=response,
     )
 
-
+# -------- READ ---------------------------------------------------------- #
 @app.route('/read', methods=['GET'])
 def read():
     """
     Handles routing for speech synthesis by Amazon Polly
     """
-    # Get the parameters from the query string
     try:
         outputFormat = request.args.get('outputFormat')
         text = request.args.get('text')
@@ -86,8 +81,7 @@ def read():
     except TypeError:
         raise InvalidUsage("Wrong parameters", status_code=400)
 
-    # Validate the parameters, set error flag in case of unexpected
-    # values
+    # Validate the parameters, set error flag in case of unexpected values
     if len(text) == 0 or len(voiceId) == 0 or \
             outputFormat not in AUDIO_FORMATS:
         raise InvalidUsage("Wrong parameters", status_code=400)
@@ -105,14 +99,8 @@ def read():
                          AUDIO_FORMATS[outputFormat])
 
 
+# ======== Main ============================================================== #
 if __name__ == '__main__':
-    """
-    Web interface for a flight booking dialog agent.
-    Componants:
-    ASR: Google Web API SpeechRecognizer
-    TTS: Amazon Polly
-    """
-    # Argument Parser
     parser = ArgumentParser(description='Example Flask Application')
     parser.add_argument("-p", "--port", type=int,
                         metavar="PORT", dest="port", default=5000, help='Port number')
@@ -120,8 +108,4 @@ if __name__ == '__main__':
                         dest="host", default="localhost")
     args = parser.parse_args()
 
-    # Main
-    print("Web interface initializing")
-    app.secret_key = os.urandom(24)
-    app.debug = True
-    app.run(args.host, args.port)
+    app.run(host=args.host, port=args.port, debug=True)
