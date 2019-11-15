@@ -2,8 +2,7 @@
 DA-GUI - Dialog Agent Graphical User Interface
 </h1>
 
-<img src="img/screenshot.png" alt="Screenshot" align="center"/>
-
+<img src="https://user-images.githubusercontent.com/9976294/68943776-22d4d700-077a-11ea-8188-6da9b87a92c4.png" alt="Screenshot" align="center"/>
 
 ## Table of Contents
 <!-- ⛔️ MD-MAGIC-EXAMPLE:START (TOC:collapse=true&collapseText=Click to expand) -->
