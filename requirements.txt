@@ -15,10 +15,11 @@ pkg-resources==0.0.0
 pyasn1==0.4.7
 pycodestyle==2.5.0
 python-dateutil==2.8.0
-PyYAML==5.4
-rsa==3.4.2
+PyYAML==5.1.2
+rsa==4.7
 s3transfer==0.2.1
 six==1.12.0
 tqdm==4.36.1
 urllib3==1.26.5
+urllib3==1.25.8
 Werkzeug==0.16.0
